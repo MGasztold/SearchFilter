@@ -346,7 +346,9 @@ class Filter<T : FilterModel> : FrameLayout, FilterItemListener, CollapseListene
         val superState = super.onSaveInstanceState()
         return Bundle().apply {
             putParcelable(STATE_SUPER, superState)
-            putBoolean(STATE_COLLAPSED, isCollapsed!!)
+            if(isCollapsed != null) {
+                putBoolean(STATE_COLLAPSED, isCollapsed!!)
+            }
             val selected = mSelectedItems
             val removed = mRemovedItems
             if (selected is Serializable) {
