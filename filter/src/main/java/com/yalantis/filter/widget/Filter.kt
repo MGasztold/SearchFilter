@@ -100,6 +100,8 @@ class Filter<T : FilterModel> : FrameLayout, FilterItemListener, CollapseListene
 
         mItems.clear()
         expandedFilter.post {
+            expandedFilter.removeAllViews()
+            expandedFilter.reset()
             adapter?.items?.forEachIndexed { i, item ->
                 val view: FilterItem = adapter?.createView(i, item)!!
                 view.listener = this

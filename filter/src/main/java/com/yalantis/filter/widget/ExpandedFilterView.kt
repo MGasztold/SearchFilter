@@ -30,6 +30,16 @@ class ExpandedFilterView : ViewGroup {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleRes: Int) : super(context, attrs, defStyleRes)
 
+    fun reset() {
+        mPrevItem = null
+        mPrevX = null
+        mPrevY = null
+        mPrevHeight = 0
+        mStartX = 0f
+        mStartY = 0f
+        filters.clear()
+    }
+
     override fun onLayout(p0: Boolean, p1: Int, p2: Int, p3: Int, p4: Int) {
         if (!filters.isEmpty()) {
             for (i in 0..childCount - 1) {
