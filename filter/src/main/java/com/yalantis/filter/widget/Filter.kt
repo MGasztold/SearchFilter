@@ -20,10 +20,8 @@ import kotlinx.android.synthetic.main.collapsed_container.view.*
 import kotlinx.android.synthetic.main.filter.view.*
 import java.io.Serializable
 import java.util.*
-import android.content.res.TypedArray
 import android.graphics.Color
-import androidx.annotation.ColorInt
-
+import android.util.Log
 
 /**
  * Created by galata on 08.09.16.
@@ -108,9 +106,11 @@ class Filter<T : FilterModel> : FrameLayout, FilterItemListener, CollapseListene
                 expandedFilter.addView(view)
                 mItems.put(view, item)
             }
-            if (isCollapsed == null) {
-                collapse(1)
-            }
+//            if (isCollapsed == null) {
+//                collapse(1)
+//            }
+
+            listener?.onFilterBuild()
         }
         expandedFilter.margin = margin
         collapsedFilter.margin = margin
@@ -276,6 +276,19 @@ class Filter<T : FilterModel> : FrameLayout, FilterItemListener, CollapseListene
         item.startX = x
         item.startY = y
         item.bringToFront()
+    }
+
+    fun select(item: FilterModel) {
+        val it = mItems.keys.find {
+            it.text == item.getText()
+        }
+        if (it != null) {
+            it.select()
+        }
+    }
+
+    companion object {
+        private const val TAG = "Filter"
     }
 
     override fun onItemSelected(item: FilterItem) {
